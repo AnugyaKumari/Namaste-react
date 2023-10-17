@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard  ,{withPromotedLabel} from "./RestaurantCard";
 import resLists from "../utils/mockData";
 import { useState } from "react";
 import Shimmer from "./Shimmer";
@@ -49,6 +49,9 @@ const Body = () => {
   //   },
   // ]);
   
+  //create restaurantcard component which has promoted label
+  const RestaurntCardPromoted = withPromotedLabel(RestaurantCard);
+  
   //Now i will pass my mockData
 
   //after removing mockData
@@ -57,7 +60,7 @@ const Body = () => {
   const [searchText , setSearchText] = useState("");
 
   //whenever state variable update ,react triggers a reconciliation cycle(re-render the component)
-  console.log("body re-render");
+  console.log("body re-render", listOfrestaurants);
   //create own restaurants
   //   let listOfrestaurants2 = [
   //     {
@@ -144,10 +147,10 @@ const Body = () => {
   //ternary operator
   return listOfrestaurants.length==0 ? <Shimmer /> :(
     <div className="body">
-      <div className="filter">
-        <div className="search">
-          <input type="text" className="search-box" value={searchText} onChange={(e)=>setSearchText(e.target.value)}/>
-          <button type="btn" onClick={() =>{
+      <div className="filter flex">
+        <div className="search m-4 p-4">
+          <input type="text" className="border border-solid border-black" value={searchText} onChange={(e)=>setSearchText(e.target.value)}/>
+          <button className="px-4 py-2 m-4 bg-green-300 rounded-lg" onClick={() =>{
             //Filter the restaurant card and update UI
             //searchText
             console.log(searchText);
@@ -161,8 +164,9 @@ const Body = () => {
             Search
         </button>
         </div>
+        <div className="search m-4 p-4 flex items-center"> 
         <button
-          className="filter-btn"
+          className="px-4 py-2 m-4 bg-gray-300 rounded-lg"
           onClick={() => {
             //filter logic
             const filteredList = listOfrestaurants.filter(
@@ -173,15 +177,18 @@ const Body = () => {
         >
           Top Rated restaurants
         </button>
+        </div>
       </div>
-      <div className="restaurent-box">
+      <div className="flex flex-wrap">
         {/* {listOfrestaurants.map((resObj, i) => <RestaurantCard key={resObj.info.id} resData={resLists[i]} />)} */}
         
         {filteredReastaurants?.map((resObj) => (
           <Link 
           key = {resObj.info.id} to = {"/restaurant/" + resObj.info.id }
           >
-            <RestaurantCard  resData={resObj} /> 
+            {/* if the restaurant is promoted add promoted label to it */}
+            {resObj.info.promoted ? (<RestaurntCardPromoted resData ={resObj} /> ):( 
+            <RestaurantCard  resData={resObj} /> )}
           </Link>
         ))}
         {/* <RestaurantCard  resData= {resLists[0]} />
