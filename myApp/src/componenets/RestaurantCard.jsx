@@ -10,6 +10,8 @@ const RestaurantCard = (props)=>{
         
     }
     //console.log(resData)
+    console.log(CDN_URL + 
+        cloudinaryImageId)
     return (
         <div className="m-4 p-4  h-full w-[250px] rounded-lg bg-gray-200 hover:bg-gray-500">
             {

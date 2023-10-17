@@ -214,3 +214,5 @@ This is called just before our component is unmount(disappear) or when we leave 
 ==>This is because the useEffect hook expects its effect function to return either a cleanup function or nothing 
 
 35.Custom Hooks-
+
+36.postcss -PostCSS is a software development tool that uses JavaScript-based plugins to automate routine CSS operations.
